@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   autenticarse(valores:any){
     console.log("valores",valores);
     sessionStorage.setItem('usuario', valores.usuario);
+    this.router.navigate(['menu/menu']);
   }
 
 

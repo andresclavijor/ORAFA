@@ -19,6 +19,8 @@ export class AppComponent implements OnInit{
   validarUsuarioConectado(){
     let usuario = sessionStorage.getItem('usuario');
       if (usuario) {
+        this.router.navigate(['menu/menu']);
+      }else{
         this.router.navigate(['registro/login']);
       }
   }
