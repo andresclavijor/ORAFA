@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { registroRoutingModule } from './registro-routing.module';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     registroRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class RegistroModule { }

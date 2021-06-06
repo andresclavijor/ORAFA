@@ -5,6 +5,7 @@ import { MenuRoutingModule } from './menu-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -21,7 +22,9 @@ const appRoutes = [
     CommonModule,
     MenuRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    ToastrModule.forRoot(),
+
   ]
 })
 export class MenuModule { }

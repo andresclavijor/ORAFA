@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { RegistroComponent } from '../registro/registro.component';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +10,41 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  formLogin: FormGroup ;
+  
+  constructor(
+    private router:Router,
+    public dialog: MatDialog
+  ) {
+    this.formLogin = new FormGroup({
+      usuario: new FormControl("", [Validators.required]),
+      contraseña: new FormControl("", [Validators.required])
+    });
+   }
 
-  constructor() { }
 
-  form: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
 
   ngOnInit(): void {
 
   }
 
-  
+  autenticarse(valores:any){
+    console.log("valores",valores);
+    sessionStorage.setItem('usuario', valores.usuario);
+  }
+
+
+  registrarse(): void {
+    const dialogRef = this.dialog.open(RegistroComponent, {
+      width: '750px',
+      data: this.formLogin.value,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.router.navigate(['menu/menu']);
+      }
+    });
+  }
 
 }

@@ -1,1 +1,161 @@
-<p>registro works!</p>
+<h1 mat-dialog-title>Registro de usuario</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formUsuario">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Usuario</mat-label>
+                    <input matInput placeholder="Ingrese nombre de usuario" formControlName="usuario">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.usuario.hasError('required')">Ingrese usuario</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="padding-bottom: 20px !important">
+                <button mat-raised-button color="primary" (click)="validarUsuario()">Validar</button>
+            </div>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Identificaion</mat-label>
+                    <input matInput placeholder="Ingrese identificacion" formControlName="identificacion">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.identificacion.hasError('required')">Ingrese identificacion</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Tipo Identificación</mat-label>
+                    <mat-select formControlName="tipoDocumento">
+                      <mat-option *ngFor="let tipodId of tiposIdentificacion" [value]="tipodId">
+                        {{tipodId.descripcion}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formUsuario.controls.tipoDocumento.hasError('required')">Ingrese tipo de documento</mat-error>
+                  </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="formUsuario.controls.fechaNacimiento.hasError('required')">Ingrese fecha nacimiento</mat-error>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Ingrese su nombre" formControlName="nombre">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.nombre.hasError('required')">Ingrese nombre</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Apellido</mat-label>
+                    <input matInput placeholder="Ingrese su apellido" formControlName="apellido">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.apellido.hasError('required')">Ingrese apellido</mat-error>
+
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Celular</mat-label>
+                    <input matInput placeholder="Ingrese su celular" formControlName="celular">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.celular.hasError('required')">Ingrese celular</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Telefono</mat-label>
+                    <input matInput placeholder="Ingrese su telefono" formControlName="telefono">
+                    <mat-error *ngIf="formUsuario.controls.telefono.hasError('required')">Ingrese telefono</mat-error>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Correo</mat-label>
+                    <input matInput placeholder="Ingrese su correo" formControlName="email" type="email">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.email.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Direccion</mat-label>
+                    <input matInput placeholder="Ingrese su direccion" formControlName="direccion">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.direccion.invalid">Ingrese direccion</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Departamento</mat-label>
+                    <mat-select formControlName="departamento" (selectionChange)="obtenerCiudades()">
+                      <mat-option *ngFor="let departamento of departamentos" [value]="departamento">
+                        {{departamento.descripcion}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formUsuario.controls.departamento.hasError('required')">Ingrese departamento</mat-error>
+                  </mat-form-field>
+            </div>
+            <div fxFlex>
+                <div>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Ciudad</mat-label>
+                        <mat-select formControlName="ciudad">
+                          <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">
+                            {{ciudad.descripcion}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formUsuario.controls.ciudad.hasError('required')">Ingrese ciudad</mat-error>
+                      </mat-form-field>
+                </div>
+
+            </div>
+            <div fxFlex style="padding-bottom: 20px !important">
+                <mat-radio-group fxFlex
+                aria-labelledby="example-radio-group-label"
+                class="example-radio-group"
+                formControlName="tipoUsuario">
+                <mat-radio-button class="example-radio-button" style="margin: 10px;" *ngFor="let usuario of tipoUsuarios" [value]="usuario">
+                  {{usuario.descripcion}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Contraseña</mat-label>
+                    <input type="password" matInput placeholder="Ingrese su telefono" formControlName="contrasena">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.contrasena.hasError('required') && contrasenasDiferentes == false">Ingrese contraseña</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Confirme Contraseña</mat-label>
+                    <input type="password" matInput placeholder="Ingrese su correo" formControlName="confirmacionContrasena">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="formUsuario.controls.confirmacionContrasena.invalid && contrasenasDiferentes == false">Confirme su contraseña</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="10px">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary" cdkFocusInitial [disabled]="formUsuario.invalid" (click)="guardarUsuario(formUsuario.value)">Registrarse</button>
+</div>
