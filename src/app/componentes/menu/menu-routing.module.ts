@@ -5,14 +5,20 @@ import { EstudianteComponent } from './estudiante/estudiante.component';
 import { MenuComponent } from './menu/menu.component';
 
 
-const routes: Routes = [
-    { path: 'estudiante', component:  EstudianteComponent},
-    { path: 'menu', component:  MenuComponent},
-    { path: '**', component:  EstudianteComponent},
+const menuRoutes: Routes = [
+  { 
+    path: '', 
+    component: MenuComponent,
+    children:[
+      { path: 'admin', loadChildren: () => import(`../admin/admin.module`).then(m => m.AdminModule) },
+      { path: 'estudiantes', component: EstudianteComponent },
+    ],
+  },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(menuRoutes)],
   exports: [RouterModule]
 })
 

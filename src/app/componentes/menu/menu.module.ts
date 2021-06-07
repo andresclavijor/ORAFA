@@ -7,12 +7,6 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 
-
-
-const appRoutes = [
-  { path: 'users', component: EstudianteComponent,  pathMatch: 'full'},
-];
-
 @NgModule({
   declarations: [
     EstudianteComponent,

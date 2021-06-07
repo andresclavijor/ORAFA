@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    sessionStorage.clear();
   }
 
   autenticarse(valores:any){
     console.log("valores",valores);
     sessionStorage.setItem('usuario', valores.usuario);
-    this.router.navigate(['menu/menu']);
+    this.router.navigate(['menu']);
   }
 
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.router.navigate(['menu/menu']);
+        this.router.navigate(['menu']);
       }
     });
   }
